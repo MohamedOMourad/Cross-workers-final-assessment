@@ -14,13 +14,18 @@ function classNames(...classes: (string | boolean | undefined)[]) {
   return classes.filter(Boolean).join(' ');
 }
 
+type MobileSideBarProps = {
+  sidebarOpen: boolean;
+  setSidebarOpen: (value: boolean) => void;
+  events: CommunityDocument[];
+};
+
 const MobileSidebar = ({
   sidebarOpen,
   setSidebarOpen,
-}: {
-  sidebarOpen: boolean;
-  setSidebarOpen: (value: boolean) => void;
-}) => {
+  events,
+}: MobileSideBarProps) => {
+  const [activeEvent, setActiveEvent] = React.useState('');
   return (
     <>
       {' '}
@@ -65,19 +70,20 @@ const MobileSidebar = ({
                 <ul role="list" className="flex flex-1 flex-col gap-y-7">
                   <li>
                     <ul role="list" className="-mx-2 space-y-1">
-                      {navigation.map((item) => (
-                        <li key={item.name}>
-                          <a
-                            href={item.href}
+                      {events.map((event) => (
+                        <li key={event._id}>
+                          <button
+                            type="button"
+                            onClick={() => setActiveEvent(event.name)}
                             className={classNames(
-                              item.current
+                              event.name === activeEvent
                                 ? 'bg-gray-50 text-indigo-600'
                                 : 'text-gray-700 hover:bg-gray-50 hover:text-indigo-600',
                               'group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6',
                             )}
                           >
-                            {item.name}
-                          </a>
+                            {event.name}
+                          </button>
                         </li>
                       ))}
                     </ul>

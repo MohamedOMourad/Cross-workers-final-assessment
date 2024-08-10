@@ -1,19 +1,13 @@
 import React from 'react';
-import { Communities } from '/communities/communities';
-import useCollectionTracker from '../hooks/useCollectionTracker';
-import { useTracker } from 'meteor/react-meteor-data';
-import { Meteor } from 'meteor/meteor';
-const Home = () => {
-  const { trackedCollection: communities, isLoading } = useCollectionTracker(
-    Communities,
-    'communities',
-  );
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-  console.log(communities);
 
-  return <div>Home</div>;
+const Home = () => {
+  return (
+    <div className="lg:pl-72">
+      <section className="py-10">
+        <div className="px-4 sm:px-6 lg:px-8">Home</div>
+      </section>
+    </div>
+  );
 };
 
 export default Home;

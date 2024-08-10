@@ -7,7 +7,6 @@ Meteor.publish('communities', () => {
     if (!communities) {
       throw new Meteor.Error('communities-not-found', 'Communities not found.');
     }
-    console.log(communities);
     return communities;
   } catch (error) {
     throw new Meteor.Error(

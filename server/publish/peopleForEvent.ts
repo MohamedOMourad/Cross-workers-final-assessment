@@ -7,7 +7,7 @@ Meteor.publish('peopleForEvent', (eventId) => {
     const selectedEvent = Communities.findOne(eventId);
 
     if (selectedEvent) {
-      return People.find({ communityId: selectedEvent._id });
+      return People.find({ communityId: eventId });
     }
 
     return People.find({ _id: '' });

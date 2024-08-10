@@ -1,12 +1,17 @@
 import React from 'react';
+import { classNames } from '../store/utils';
 
-const navigation = [{ name: 'Dashboard', href: '#', current: true }];
+type desktopSideBarProps = {
+  events: CommunityDocument[] | undefined;
+  selectedEvent: string;
+  setSelectedEvent: (value: string) => void;
+};
 
-function classNames(...classes: (string | boolean | undefined)[]) {
-  return classes.filter(Boolean).join(' ');
-}
-
-const DesktopSideBar = () => {
+const DesktopSideBar = ({
+  events,
+  selectedEvent,
+  setSelectedEvent,
+}: desktopSideBarProps) => {
   return (
     <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
       <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 pb-4">
@@ -19,19 +24,20 @@ const DesktopSideBar = () => {
           <ul role="list" className="flex flex-1 flex-col gap-y-7">
             <li>
               <ul role="list" className="-mx-2 space-y-1">
-                {navigation.map((item) => (
-                  <li key={item.name}>
-                    <a
-                      href={item.href}
+                {events?.map((event) => (
+                  <li key={event._id}>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedEvent(event._id)}
                       className={classNames(
-                        item.current
+                        event._id === selectedEvent
                           ? 'bg-gray-50 text-indigo-600'
                           : 'text-gray-700 hover:bg-gray-50 hover:text-indigo-600',
                         'group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6',
                       )}
                     >
-                      {item.name}
-                    </a>
+                      {event.name}
+                    </button>
                   </li>
                 ))}
               </ul>

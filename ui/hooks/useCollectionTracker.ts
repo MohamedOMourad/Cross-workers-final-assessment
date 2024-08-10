@@ -1,10 +1,15 @@
 import { Meteor } from 'meteor/meteor';
+import { Mongo } from 'meteor/mongo';
 import { useTracker } from 'meteor/react-meteor-data';
 
-const useCollectionTracker = (collection: any, subscriber: string) => {
+const useCollectionTracker = <T extends MongoDocument>(
+  collection: Mongo.Collection<T>,
+  subscriber: string,
+  documentId = '',
+) => {
   const { trackedCollection, isLoading } = useTracker(() => {
     try {
-      const trackedCollectionsSub = Meteor.subscribe(subscriber);
+      const trackedCollectionsSub = Meteor.subscribe(subscriber, documentId);
       const isLoading = !trackedCollectionsSub.ready();
 
       const trackedCollection = collection.find().fetch();
@@ -15,7 +20,7 @@ const useCollectionTracker = (collection: any, subscriber: string) => {
 
       return { trackedCollections: [], isLoading: false, error };
     }
-  }, [collection]);
+  });
 
   return { trackedCollection, isLoading };
 };

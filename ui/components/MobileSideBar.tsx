@@ -8,8 +8,6 @@ import {
 
 import { XMarkIcon } from '@heroicons/react/24/outline';
 
-const navigation = [{ name: 'Dashboard', href: '#', current: true }];
-
 function classNames(...classes: (string | boolean | undefined)[]) {
   return classes.filter(Boolean).join(' ');
 }
@@ -17,15 +15,18 @@ function classNames(...classes: (string | boolean | undefined)[]) {
 type MobileSideBarProps = {
   sidebarOpen: boolean;
   setSidebarOpen: (value: boolean) => void;
-  events: CommunityDocument[];
+  events: CommunityDocument[] | undefined;
+  selectedEvent: string;
+  setSelectedEvent: (value: string) => void;
 };
 
 const MobileSidebar = ({
   sidebarOpen,
   setSidebarOpen,
   events,
+  selectedEvent,
+  setSelectedEvent,
 }: MobileSideBarProps) => {
-  const [activeEvent, setActiveEvent] = React.useState('');
   return (
     <>
       {' '}
@@ -70,13 +71,13 @@ const MobileSidebar = ({
                 <ul role="list" className="flex flex-1 flex-col gap-y-7">
                   <li>
                     <ul role="list" className="-mx-2 space-y-1">
-                      {events.map((event) => (
+                      {events?.map((event) => (
                         <li key={event._id}>
                           <button
                             type="button"
-                            onClick={() => setActiveEvent(event.name)}
+                            onClick={() => setSelectedEvent(event._id)}
                             className={classNames(
-                              event.name === activeEvent
+                              event._id === selectedEvent
                                 ? 'bg-gray-50 text-indigo-600'
                                 : 'text-gray-700 hover:bg-gray-50 hover:text-indigo-600',
                               'group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6',

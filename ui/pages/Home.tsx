@@ -6,7 +6,6 @@ type HomeProps = {
 };
 
 const Home = ({ people }: HomeProps) => {
-  console.log(people);
   return (
     <div className="lg:pl-72">
       <section className="py-10">

@@ -26,7 +26,6 @@ export const App = () => {
     return <div>Loading...</div>;
   }
 
-  console.log(selectedEvent);
   return (
     <Layout setSidebarOpen={setSidebarOpen}>
       <MobileSidebar

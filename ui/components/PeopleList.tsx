@@ -1,57 +1,61 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from './Button';
+import { Meteor } from 'meteor/meteor';
 
-const projects = [
-  {
-    id: 1,
-    name: 'GraphQL API',
-    href: '#',
-    status: 'Complete',
-    createdBy: 'Leslie Alexander',
-    dueDate: 'March 17, 2023',
-    dueDateTime: '2023-03-17T00:00Z',
-  },
-  {
-    id: 2,
-    name: 'New benefits plan',
-    href: '#',
-    status: 'In progress',
-    createdBy: 'Leslie Alexander',
-    dueDate: 'May 5, 2023',
-    dueDateTime: '2023-05-05T00:00Z',
-  },
-  {
-    id: 3,
-    name: 'Onboarding emails',
-    href: '#',
-    status: 'In progress',
-    createdBy: 'Courtney Henry',
-    dueDate: 'May 25, 2023',
-    dueDateTime: '2023-05-25T00:00Z',
-  },
-  {
-    id: 4,
-    name: 'iOS app',
-    href: '#',
-    status: 'In progress',
-    createdBy: 'Leonard Krasner',
-    dueDate: 'June 7, 2023',
-    dueDateTime: '2023-06-07T00:00Z',
-  },
-  {
-    id: 5,
-    name: 'Marketing site redesign',
-    href: '#',
-    status: 'Archived',
-    createdBy: 'Courtney Henry',
-    dueDate: 'June 10, 2023',
-    dueDateTime: '2023-06-10T00:00Z',
-  },
-];
 type PeopleListProps = {
   people: PersonDocument[] | undefined;
 };
 const PeopleList = ({ people }: PeopleListProps) => {
+  const [checkInTimes, setCheckInTimes] = useState<{ [key: string]: Date }>();
+
+  useEffect(() => {
+    const initialCheckInTimes = people?.reduce(
+      (acc: { [key: string]: Date }, person) => {
+        if (person.checkInTime) {
+          acc[person._id] = new Date(person.checkInTime);
+        }
+        return acc;
+      },
+      {},
+    );
+
+    setCheckInTimes(initialCheckInTimes);
+  }, [people]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCheckInTimes((prevTimes) => ({ ...prevTimes }));
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const checkInHandler = (personId: string) => {
+    Meteor.call('addPersonForEvent', personId, () => {
+      setCheckInTimes({
+        ...checkInTimes,
+        [personId]: new Date(),
+      });
+    });
+  };
+
+  const checkoutHandler = (personId: string) => {
+    Meteor.call('removePersonFromEvent', personId, () => {
+      setCheckInTimes({
+        ...checkInTimes,
+        [personId]: new Date(),
+      });
+    });
+  };
+
+  const isCheckedInOverFiveSeconds = (personId: string) => {
+    const checkInDate = checkInTimes?.[personId] ?? null;
+    if (!checkInDate) return false;
+    const fiveSecondsAgo = new Date(Date.now() - 5000);
+    console.log('fdfd', fiveSecondsAgo < checkInDate);
+    return fiveSecondsAgo < checkInDate;
+  };
+
   return (
     <ul role="list" className="divide-y divide-gray-100">
       {people?.map((person) => (
@@ -77,16 +81,16 @@ const PeopleList = ({ people }: PeopleListProps) => {
             </div> */}
           </div>
           <div className="flex flex-none items-center gap-x-4">
-            {person.checkInTime ? (
+            {person.checkInTime && isCheckedInOverFiveSeconds(person._id) ? (
               <Button
-                size="small"
+                onClick={() => checkoutHandler(person._id)}
                 className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-red-500 hover:text-white w-32 sm:block"
               >
                 Check Out
               </Button>
             ) : (
               <Button
-                size="small"
+                onClick={() => checkInHandler(person._id)}
                 className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-green-400 hover:text-white w-32 sm:block"
               >
                 Check In

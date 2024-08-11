@@ -1,0 +1,3 @@
+type Community = {
+  name: string;
+};

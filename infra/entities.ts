@@ -6,6 +6,7 @@ type Person = {
   communityId?: string | null;
   checkInTime?: Date | null;
   checkOutTime?: Date | null;
+  readyForCheckout?: boolean;
 };
 
 type Community = {

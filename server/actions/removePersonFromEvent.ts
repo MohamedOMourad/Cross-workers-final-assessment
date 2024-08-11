@@ -8,12 +8,17 @@ export const removePersonFromEvent = (personId: string) => {
       throw new Meteor.Error(
         'person-not-found',
         'Person not found.',
-        'Error removing person from event.',
+        'Error removing person from event.'
       );
     }
 
     return People.updateAsync(personId, {
-      $set: { checkOutDate: new Date(), updatedAt: new Date() },
+      $set: {
+        checkInTime: null,
+        checkOutTime: new Date(),
+        readyForCheckout: false,
+        updatedAt: new Date(),
+      },
     });
   } catch (error) {
     console.error('Error removing person from event:', error);
@@ -21,7 +26,7 @@ export const removePersonFromEvent = (personId: string) => {
     throw new Meteor.Error(
       'remove-person-from-event-error',
       error as string,
-      'Error removing person from event.',
+      'Error removing person from event.'
     );
   }
 };

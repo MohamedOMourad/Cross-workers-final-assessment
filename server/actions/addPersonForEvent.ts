@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { People } from '/people/people';
 
-export const addPersonForEvent = (personId: string) => {
+export const addPersonForEvent = async (personId: string) => {
   try {
     const personRecord = People.findOne({ _id: personId });
 
@@ -13,8 +13,8 @@ export const addPersonForEvent = (personId: string) => {
       );
     }
 
-    return People.updateAsync(personId, {
-      $set: { checkInDate: new Date(), updatedAt: new Date() },
+    return await People.updateAsync(personId, {
+      $set: { checkInTime: new Date(), readyForCheckout : false, updatedAt: new Date() },
     });
   } catch (error) {
     console.error('Error adding person to event:', error);

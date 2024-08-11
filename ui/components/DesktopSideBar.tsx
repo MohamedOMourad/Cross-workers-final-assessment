@@ -1,5 +1,5 @@
 import React from 'react';
-import { classNames } from '../store/utils';
+import { classNames } from '../utils';
 
 type desktopSideBarProps = {
   events: CommunityDocument[] | undefined;

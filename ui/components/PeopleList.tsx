@@ -6,55 +6,52 @@ type PeopleListProps = {
   people: PersonDocument[] | undefined;
 };
 const PeopleList = ({ people }: PeopleListProps) => {
-  const [checkInTimes, setCheckInTimes] = useState<{ [key: string]: Date }>();
+  console.log(people);
+  // const [checkInTimes, setCheckInTimes] = useState<{ [key: string]: Date }>();
 
-  useEffect(() => {
-    const initialCheckInTimes = people?.reduce(
-      (acc: { [key: string]: Date }, person) => {
-        if (person.checkInTime) {
-          acc[person._id] = new Date(person.checkInTime);
-        }
-        return acc;
-      },
-      {},
-    );
+  // useEffect(() => {
+  //   const initialCheckInTimes = people?.reduce(
+  //     (acc: { [key: string]: Date }, person) => {
+  //       if (person.checkInTime) {
+  //         acc[person._id] = new Date(person.checkInTime);
+  //       }
+  //       return acc;
+  //     },
+  //     {},
+  //   );
 
-    setCheckInTimes(initialCheckInTimes);
-  }, [people]);
+  //   setCheckInTimes(initialCheckInTimes);
+  // }, [people]);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCheckInTimes((prevTimes) => ({ ...prevTimes }));
-    }, 1000);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setCheckInTimes((prevTimes) => ({ ...prevTimes }));
+  //   }, 1000);
 
-    return () => clearInterval(interval);
-  }, []);
+  //   return () => clearInterval(interval);
+  // }, []);
 
-  const checkInHandler = (personId: string) => {
-    Meteor.call('addPersonForEvent', personId, () => {
-      setCheckInTimes({
-        ...checkInTimes,
-        [personId]: new Date(),
-      });
-    });
+  const checkInHandler = async (personId: string) => {
+    const data = await Meteor.callAsync('addPersonForEvent', personId);
+    console.log(data);
   };
 
   const checkoutHandler = (personId: string) => {
     Meteor.call('removePersonFromEvent', personId, () => {
-      setCheckInTimes({
-        ...checkInTimes,
-        [personId]: new Date(),
-      });
+      // setCheckInTimes({
+      //   ...checkInTimes,
+      //   [personId]: new Date(),
+      // });
     });
   };
 
-  const isCheckedInOverFiveSeconds = (personId: string) => {
-    const checkInDate = checkInTimes?.[personId] ?? null;
-    if (!checkInDate) return false;
-    const fiveSecondsAgo = new Date(Date.now() - 5000);
-    console.log('fdfd', fiveSecondsAgo < checkInDate);
-    return fiveSecondsAgo < checkInDate;
-  };
+  // const isCheckedInOverFiveSeconds = (personId: string) => {
+  //   const checkInDate = checkInTimes?.[personId] ?? null;
+  //   if (!checkInDate) return false;
+  //   const fiveSecondsAgo = new Date(Date.now() - 5000);
+  //   console.log('fdfd', fiveSecondsAgo < checkInDate);
+  //   return fiveSecondsAgo < checkInDate;
+  // };
 
   return (
     <ul role="list" className="divide-y divide-gray-100">
@@ -81,14 +78,15 @@ const PeopleList = ({ people }: PeopleListProps) => {
             </div> */}
           </div>
           <div className="flex flex-none items-center gap-x-4">
-            {person.checkInTime && isCheckedInOverFiveSeconds(person._id) ? (
+            {person.checkInTime && person.readyForCheckout && (
               <Button
                 onClick={() => checkoutHandler(person._id)}
                 className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-red-500 hover:text-white w-32 sm:block"
               >
                 Check Out
               </Button>
-            ) : (
+            )}
+            {!person.checkInTime && (
               <Button
                 onClick={() => checkInHandler(person._id)}
                 className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-green-400 hover:text-white w-32 sm:block"

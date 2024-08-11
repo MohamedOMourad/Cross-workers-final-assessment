@@ -5,6 +5,7 @@ import EventStats from '../components/EventStats';
 
 type HomeProps = {
   people: PersonDocument[] | undefined;
+  loadingPeoples: boolean;
 };
 
 const Home = ({ people }: HomeProps) => {

@@ -18,6 +18,7 @@ type MobileSideBarProps = {
   events: CommunityDocument[] | undefined;
   selectedEvent: string;
   setSelectedEvent: (value: string) => void;
+  loadingCommunities: boolean;
 };
 
 const MobileSidebar = ({

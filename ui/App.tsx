@@ -30,13 +30,15 @@ export const App = () => {
         events={communities}
         selectedEvent={selectedEvent}
         setSelectedEvent={setSelectedEvent}
+        loadingCommunities={loadingCommunities}
       />
       <DesktopSideBar
         events={communities}
         selectedEvent={selectedEvent}
         setSelectedEvent={setSelectedEvent}
+        loadingCommunities={loadingCommunities}
       />
-      <Home people={people} />
+      <Home people={people} loadingPeoples={loadingPeoples} />
     </Layout>
   );
 };

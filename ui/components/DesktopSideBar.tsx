@@ -5,6 +5,7 @@ type desktopSideBarProps = {
   events: CommunityDocument[] | undefined;
   selectedEvent: string;
   setSelectedEvent: (value: string) => void;
+  loadingCommunities: boolean;
 };
 
 const DesktopSideBar = ({

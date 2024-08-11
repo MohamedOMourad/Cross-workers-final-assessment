@@ -13,8 +13,9 @@ const PersonStatus = ({
     console.log(data);
   };
 
-  const checkoutHandler = (personId: string) => {
-    Meteor.call('removePersonFromEvent', personId, () => {});
+  const checkoutHandler = async (personId: string) => {
+    const data = await Meteor.callAsync('removePersonFromEvent', personId);
+    console.log(data);
   };
   return (
     <div className="min-w-0">

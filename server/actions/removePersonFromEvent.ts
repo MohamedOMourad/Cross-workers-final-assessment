@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { People } from '/people/people';
-export const removePersonFromEvent = (personId: string) => {
+export const removePersonFromEvent = async (personId: string) => {
   try {
     const personRecord = People.findOne({ _id: personId });
 
@@ -11,8 +11,7 @@ export const removePersonFromEvent = (personId: string) => {
         'Error removing person from event.'
       );
     }
-
-    return People.updateAsync(personId, {
+    await People.updateAsync(personId, {
       $set: {
         checkInTime: null,
         checkOutTime: new Date(),

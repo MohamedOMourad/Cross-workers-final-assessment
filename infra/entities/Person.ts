@@ -8,7 +8,3 @@ type Person = {
   checkOutTime?: Date | null;
   readyForCheckout?: boolean;
 };
-
-type Community = {
-  name: string;
-};

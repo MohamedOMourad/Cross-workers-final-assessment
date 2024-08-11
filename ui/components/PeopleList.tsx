@@ -63,19 +63,23 @@ const PeopleList = ({ people }: PeopleListProps) => {
           <div className="min-w-0">
             <div className="flex items-start gap-x-3">
               <p className="text-sm font-semibold leading-6 text-gray-900">
-                {person.firstName}
+                {person.firstName} {person.lastName}
               </p>
             </div>
-            {/* <div className="mt-1 flex items-center gap-x-2 text-xs leading-5 text-gray-500">
-              <p className="whitespace-nowrap">
-                Due on{' '}
-                <time dateTime={person.dueDateTime}>{person.dueDate}</time>
-              </p>
-              <svg viewBox="0 0 2 2" className="h-0.5 w-0.5 fill-current">
-                <circle r={1} cx={1} cy={1} />
-              </svg>
-              <p className="truncate">Created by {person.createdBy}</p>
-            </div> */}
+            {person.checkInTime && person.readyForCheckout && (
+              <div className="mt-1 flex items-center gap-x-2 text-xs leading-5 text-gray-500">
+                <p className="whitespace-nowrap">
+                  checkInDate on{' '}
+                  <time dateTime={person.checkInTime}>
+                    {person.checkInTime}
+                  </time>
+                </p>
+                <svg viewBox="0 0 2 2" className="h-0.5 w-0.5 fill-current">
+                  <circle r={1} cx={1} cy={1} />
+                </svg>
+                <p className="truncate">Created by {person.createdBy}</p>
+              </div>
+            )}
           </div>
           <div className="flex flex-none items-center gap-x-4">
             {person.checkInTime && person.readyForCheckout && (

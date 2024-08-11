@@ -19,12 +19,8 @@ export const App = () => {
     useCollectionTracker<PersonDocument>(
       People,
       'peopleForEvent',
-      selectedEvent,
+      selectedEvent
     );
-
-  if (loadingCommunities || loadingPeoples) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <Layout setSidebarOpen={setSidebarOpen}>

@@ -8,7 +8,7 @@ const Header = ({
   setSidebarOpen: (value: boolean) => void;
 }) => {
   return (
-    <div className="sticky top-0 z-40 flex flex-row h-16 shrink-0 items-center justify-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-12">
+    <div className="absolute top-0 left-0 w-full z-40 flex flex-row h-16 shrink-0 items-center justify-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-12">
       {/* Sidebar toggle */}
       <button
         type="button"
@@ -20,8 +20,8 @@ const Header = ({
       </button>
       {/* Separator */}
       <div aria-hidden="true" className="h-6 w-px bg-gray-200 lg:hidden" />
-      <div className="lg:pl-80 basis-1/2">
-        <h1 className="">Event Tracker System</h1>
+      <div className="lg:pl-64 basis-1/2">
+        <h1 className="text-2xl">Event Tracker System</h1>
       </div>
       {/* Search */}
       <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6 items-center justify-center">

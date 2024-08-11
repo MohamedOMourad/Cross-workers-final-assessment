@@ -17,7 +17,7 @@ const DesktopSideBar = ({
       <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 pb-4">
         <div className="flex h-16 shrink-0 items-center">
           <h1 className="text-2xl font-semibold leading-7 text-indigo-600">
-            Communities
+            Events
           </h1>
         </div>
         <nav className="flex flex-1 flex-col">
@@ -33,7 +33,7 @@ const DesktopSideBar = ({
                         event._id === selectedEvent
                           ? 'bg-gray-100 text-indigo-600'
                           : 'text-gray-700 hover:bg-gray-100 hover:text-indigo-600',
-                        'group flex gap-x-3 rounded-md p-2 text-xl font-semibold leading-6 w-52',
+                        'group flex gap-x-3 rounded-md p-2 text-xl font-semibold leading-6 w-52'
                       )}
                     >
                       {event.name}

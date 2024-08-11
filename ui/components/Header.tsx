@@ -20,29 +20,7 @@ const Header = ({
       </button>
       {/* Separator */}
       <div aria-hidden="true" className="h-6 w-px bg-gray-200 lg:hidden" />
-      <div className="lg:pl-64 basis-1/2">
-        <h1 className="text-l lg:text-2xl">Event Tracker System</h1>
-      </div>
-      {/* Search */}
-      <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6 items-center justify-center">
-        {/* Search */}
-        <form action="#" method="GET" className="relative flex flex-1">
-          <label htmlFor="search-field" className="sr-only">
-            Search
-          </label>
-          <MagnifyingGlassIcon
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-y-0 left-0 h-full w-5 text-gray-400"
-          />
-          <input
-            id="search-field"
-            name="search"
-            type="search"
-            placeholder="Search..."
-            className="block h-full w-full border-0 py-0 pl-8 pr-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
-          />
-        </form>
-      </div>
+      <h1 className="text-l lg:text-3xl text-indigo-600">Event Tracker System</h1>
     </div>
   );
 };

@@ -21,7 +21,7 @@ const Header = ({
       {/* Separator */}
       <div aria-hidden="true" className="h-6 w-px bg-gray-200 lg:hidden" />
       <div className="lg:pl-64 basis-1/2">
-        <h1 className="text-2xl">Event Tracker System</h1>
+        <h1 className="text-l lg:text-2xl">Event Tracker System</h1>
       </div>
       {/* Search */}
       <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6 items-center justify-center">

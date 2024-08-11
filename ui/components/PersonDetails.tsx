@@ -11,7 +11,7 @@ const PersonDetails = ({
   return (
     <>
       {checkInTime && readyForCheckout && (
-        <div className="mt-1 flex items-center gap-x-2 text-xs leading-5 text-gray-500">
+        <div className="mt-1 flex flex-wrap items-center gap-x-2 text-xs leading-5 text-gray-500">
           <p className="whitespace-nowrap">
             {`Company: ${companyName || 'Not Available'}`}
           </p>

@@ -15,8 +15,8 @@ const Home = ({ people }: HomeProps) => {
   return (
     <div className="lg:pl-72 mt-6">
       <section>
-        <EventStats />
-        <div className="px-4 sm:px-6 lg:px-8">
+        <EventStats people={people} />
+        <div className="px-1 lg:px-8">
           <PeopleList people={people} />
         </div>
       </section>

@@ -36,13 +36,13 @@ const EventStats = ({ people }: EventStatsProps) => {
   ];
 
   return (
-    <div className="bg-white py-12 sm:py-32">
+    <div className="bg-white py-12 lg:py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-1 lg:px-8">
-        <dl className="grid grid-cols-2 gap-x-1 gap-y-1 text-center lg:grid-cols-3">
+        <dl className="grid grid-cols-2 gap-x-1 gap-y-1 lg:gap-x-8 lg:gap-y-16 text-center lg:grid-cols-5">
           {stats.map((stat) => (
             <div
               key={stat.id}
-              className="mx-auto flex max-w-xs flex-col gap-y-1"
+              className="mx-auto flex max-w-xs flex-col gap-y-1 lg:gap-y-4"
             >
               <dt className="text-sm lg:text-base leading-7 text-gray-600">
                 {stat.name}
@@ -56,7 +56,7 @@ const EventStats = ({ people }: EventStatsProps) => {
             (companyName) => (
               <div
                 key={companyName}
-                className="mx-auto flex max-w-xs flex-col gap-y-1"
+                className="mx-auto flex max-w-xs flex-col gap-y-1 lg:gap-y-4"
               >
                 <dt className="text-sm lg:text-base leading-7 text-gray-600">
                   {`People from ${companyName} Company`}

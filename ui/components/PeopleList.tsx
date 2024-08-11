@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import PersonDetails from './PersonDetails';
 import PersonStatus from './PersonStatus';
 import Pagination from './Pagination';

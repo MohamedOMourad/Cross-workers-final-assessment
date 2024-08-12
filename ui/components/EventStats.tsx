@@ -26,48 +26,38 @@ const EventStats = ({ people }: EventStatsProps) => {
     (person) => !person?.checkInTime
   ).length;
 
-  const stats = [
-    {
-      id: 1,
-      name: 'People in the event right now',
-      value: numberOfPeopleInEvent,
-    },
-    { id: 3, name: 'People not checked in', value: InActivePeople },
-  ];
-
   return (
-    <div className="bg-white py-12 lg:py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-1 lg:px-8">
-        <dl className="grid grid-cols-2 gap-x-1 gap-y-1 lg:gap-x-8 lg:gap-y-16 text-center lg:grid-cols-5">
-          {stats.map((stat) => (
-            <div
-              key={stat.id}
-              className="mx-auto flex max-w-xs flex-col gap-y-1 lg:gap-y-4"
-            >
-              <dt className="text-sm lg:text-base leading-7 text-gray-600">
-                {stat.name}
-              </dt>
-              <dd className="order-first lg:text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
-                {stat.value}
-              </dd>
-            </div>
-          ))}
+    <div className="bg-white py-12 lg:py-24 sm:py-32 text-center">
+      <h2 className="text-2xl font-bold text-secondary dark:text-primary ">
+        Summary
+      </h2>
+      <div className="flex  justify-center align-middle wrap py-4">
+        <p className="text-l text-secondary dark:text-primary w-full mt-1 me-1">
+          <span className="text-indigo-500">
+            People in the event right now:
+          </span>{' '}
+          {numberOfPeopleInEvent}
+        </p>
+        <p
+          className="text-l text-secondary dark:text-primary whitespace-wrap mt-1 me-1 w-full"
+          style={{ maxWidth: '350px' }}
+        >
+          <span className="text-indigo-500">
+            People by company in the event right now:
+          </span>{' '}
           {Object.keys(numberOfPeopleFromSameCompany ?? {}).map(
             (companyName) => (
-              <div
-                key={companyName}
-                className="mx-auto flex max-w-xs flex-col gap-y-1 lg:gap-y-4"
-              >
-                <dt className="text-sm lg:text-base leading-7 text-gray-600">
-                  {`People from ${companyName} Company`}
-                </dt>
-                <dd className="order-first lg:text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
-                  {numberOfPeopleFromSameCompany?.[companyName]?.length ?? 0}
-                </dd>
-              </div>
+              <span key={companyName}>
+                {companyName} (
+                {numberOfPeopleFromSameCompany?.[companyName]?.length ?? 0}),{' '}
+              </span>
             )
           )}
-        </dl>
+        </p>
+        <p className=" w-full text-l text-secondary dark:text-primary mt-1">
+          <span className="text-indigo-500">People not checked-in:</span>{' '}
+          {InActivePeople}
+        </p>
       </div>
     </div>
   );

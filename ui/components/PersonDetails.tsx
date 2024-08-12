@@ -4,13 +4,12 @@ import { format } from 'date-fns';
 const PersonDetails = ({
   checkInTime,
   checkOutTime,
-  readyForCheckout,
   companyName,
   title,
 }: PersonDocument) => {
   return (
     <>
-      {checkInTime && readyForCheckout && (
+      {checkInTime && (
         <div className="mt-1 flex flex-wrap xlg:flex-nowrap lg:flex-nowrap items-center gap-x-2 text-xs leading-5 text-gray-500">
           <p className="whitespace-nowrap">
             {`Company: ${companyName || 'Not Available'}`}

@@ -29,7 +29,7 @@ const PersonStatus = ({
               {`Check-out ${firstName} ${lastName}`}
             </button>
           )}
-          {!readyForCheckout && (
+          {!checkInTime ? (
             <button
               disabled={checkInTime != null || checkInTime != undefined}
               onClick={() => checkInHandler(_id)}
@@ -37,6 +37,8 @@ const PersonStatus = ({
             >
               {`Check-in ${firstName} ${lastName}`}
             </button>
+          ) : (
+            !readyForCheckout && <p>{`${firstName} ${lastName}`}</p>
           )}
         </div>
       </div>
